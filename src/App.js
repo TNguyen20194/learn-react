@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CardList from './CardList'
 import SearchBox from './SearchBox'
+import Scroll from './Scroll'
 // non-default export of object from robot.js => use destructuring syntax
 import './App.css'
 
@@ -19,8 +20,7 @@ class App extends Component {
   componentDidMount () {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(users => this.setState({ robots: users })
-      )
+      .then(users => this.setState({ robots: users }))
   }
 
   onSearchChange = event => {
@@ -35,16 +35,18 @@ class App extends Component {
         .toLowerCase()
         .includes(this.state.searchfield.toLowerCase())
     })
-    if( this.state.robots.length === 0) {
-        return <h1 className='tc'>Loading...</h1>
+    if (this.state.robots.length === 0) {
+      return <h1 className='tc'>Loading...</h1>
     } else {
-        return (
-            <div className='tc'>
-              <h1 className='f1'>Robofriends</h1>
-              <SearchBox searchChange={this.onSearchChange} />
-              <CardList robots={filteredRobots} />
-            </div>
-          )
+      return (
+        <div className='tc'>
+          <h1 className='f1'>Robofriends</h1>
+          <SearchBox searchChange={this.onSearchChange} />
+          <Scroll>
+            <CardList robots={filteredRobots} />
+          </Scroll>
+        </div>
+      )
     }
   }
 }
