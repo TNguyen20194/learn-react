@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import CardList from './CardList'
-import SearchBox from './SearchBox'
-import Scroll from './Scroll'
+import CardList from '../Components/CardList'
+import SearchBox from '../Components/SearchBox'
+import Scroll from '../Components/Scroll'
 // non-default export of object from robot.js => use destructuring syntax
 import './App.css'
 
@@ -16,6 +16,7 @@ class App extends Component {
     }
   }
 
+  //Lifecycle hook
   // Updating state after fetching data from an API
   componentDidMount () {
     fetch('https://jsonplaceholder.typicode.com/users')
