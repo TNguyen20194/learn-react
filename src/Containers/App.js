@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import CardList from '../Components/CardList'
 import SearchBox from '../Components/SearchBox'
 import Scroll from '../Components/Scroll'
+import ErrorBoundary from '../Components/ComponentBoundary'
 // non-default export of object from robot.js => use destructuring syntax
 import './App.css'
 
@@ -30,24 +31,24 @@ class App extends Component {
   }
 
   render () {
-    const { robots, searchfield } = this.state;
+    const { robots, searchfield } = this.state
     // Filter robots state to now what includes in the searchfield
     const filteredRobots = robots.filter(robot => {
-      return robot.name
-        .toLowerCase()
-        .includes(searchfield.toLowerCase())
+      return robot.name.toLowerCase().includes(searchfield.toLowerCase())
     })
-    return !robots.length ?
-    <h1 className='tc'>Loading...</h1> :
-    (
-        <div className='tc'>
-          <h1 className='f1'>Robofriends</h1>
-          <SearchBox searchChange={this.onSearchChange} />
-          <Scroll>
+    return !robots.length ? (
+      <h1 className='tc'>Loading...</h1>
+    ) : (
+      <div className='tc'>
+        <h1 className='f1'>Robofriends</h1>
+        <SearchBox searchChange={this.onSearchChange} />
+        <Scroll>
+          <ErrorBoundary>
             <CardList robots={filteredRobots} />
-          </Scroll>
-        </div>
-      )
+          </ErrorBoundary>
+        </Scroll>
+      </div>
+    )
   }
 }
 
